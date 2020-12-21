@@ -1,31 +1,14 @@
-import { useQuery, gql } from '@apollo/client';
-
-interface ShipInterface {
-  name:string
-home_port:string
-image:string
-}
-
-const SPACE_X_LAUNCHES = gql`
-  query GetSpaceXlaunches {
-    launchesPast(limit: 10) {
-      ships {
-        name
-        home_port
-        image
-      }
-    }
-  }
-`;
+import { useGetLaunchesQuery } from './generated/graphql';
 
 function App() {
-  const { loading, error, data } = useQuery(SPACE_X_LAUNCHES);
+
+
+  const {data, loading, error } = useGetLaunchesQuery()
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>Error :(</p>;
+  return <ul>{data?.launchesPast?.map(launch => launch?.ships?.map(ship => <li>{ship?.name}</li>))}</ul>
 
-  console.log("data", data);
-  return (<ul>{data.launchesPast.map((launch: any) => launch.ships.map((ship: ShipInterface) => <li>{ship.name}</li>))}</ul>)
 }
 
 export default App;

@@ -1,0 +1,9 @@
+query getLaunches{
+  launchesPast(limit: 10) {
+    ships {
+      name
+      home_port
+      image
+    }
+  }
+}
