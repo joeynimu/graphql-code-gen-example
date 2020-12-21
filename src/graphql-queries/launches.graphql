@@ -1,4 +1,4 @@
-query getLaunches{
+query GetLaunches {
   launchesPast(limit: 10) {
     ships {
       name
